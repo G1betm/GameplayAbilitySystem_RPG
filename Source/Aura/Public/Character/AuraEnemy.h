@@ -22,4 +22,5 @@ public:
 	AAuraEnemy();
 	virtual void HighlightActor() override;
 	virtual void UnhighlightActor() override;
+	virtual void InitAbilityActorInfo() override;
 };
