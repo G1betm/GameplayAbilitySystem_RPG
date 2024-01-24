@@ -14,9 +14,6 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
-/**
- * 
- */
 USTRUCT()
 struct FEffectProperties
 {
@@ -50,6 +47,10 @@ struct FEffectProperties
 	ACharacter* TargetCharacter = nullptr;
 };
 
+
+template<class T>
+using TStaticFuncPointer = typename TBaseStaticDelegateInstance<T, FDefaultTSDelegateUserPolicy>::FFuncPtr;
+
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet
 {
@@ -59,6 +60,8 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+
+	TMap<FGameplayTag, TStaticFuncPointer<FGameplayAttribute()>> TagsToAttributes;
 	
 	// Vital Attributes
 	
